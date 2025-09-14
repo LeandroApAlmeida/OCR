@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    tools:context=".ui.activity.SamplesActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvSamples"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarSize="8dp"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/txvSamplesNumSamples"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imbSamplesDelete" />
+
+        <ImageButton
+            android:id="@+id/imbSamplesDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:onClick="onDeleteButtonClick"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
+
+        <Spinner
+            android:id="@+id/spnSamplesOutputList"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imbSamplesDelete" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:text="Símbolo:"
+            app:layout_constraintEnd_toStartOf="@+id/spnSamplesOutputList"
+            app:layout_constraintTop_toTopOf="@+id/spnSamplesOutputList" />
+
+        <ImageButton
+            android:id="@+id/imbSamplesDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:onClick="onDetailsButtonClick"
+            app:layout_constraintStart_toEndOf="@+id/imbSamplesDelete"
+            app:layout_constraintTop_toTopOf="@+id/imbSamplesDelete"
+            app:srcCompat="@android:drawable/ic_menu_view" />
+
+        <TextView
+            android:id="@+id/txvSamplesNumSamples"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:background="@color/material_dynamic_neutral90"
+            android:gravity="center_vertical"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
