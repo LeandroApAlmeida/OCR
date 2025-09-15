@@ -6,9 +6,6 @@ package tests.android.ocr.perceptron
 
 import java.io.Serializable
 
-/**
- * Classe que representa um Perceptron de camada única.
- */
 class Perceptron(
 
     /**Número de entradas (features).*/
