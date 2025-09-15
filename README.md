@@ -2,6 +2,8 @@ Aplicativo Kotlin para sistemas Android que implementa uma rede neural artificia
 
 Classe do Perceptron:
 
+<pre>
+    
 package tests.android.ocr.perceptron
 
 import java.io.Serializable
@@ -284,6 +286,8 @@ class Perceptron(
 
 
 }
+
+</pre>
 
 Para mais informações sobre o modelo, consulte a página:
 
