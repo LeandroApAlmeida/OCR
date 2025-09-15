@@ -1,6 +1,6 @@
-Aplicativo Kotlin para sistemas Android que implementa uma rede neural artificial de camada única do tipo perceptron. O objetivo do aplicativo é a demonstração de como este modelo de rede neural é implementado na prática.
+Aplicativo Kotlin para sistemas Android que implementa uma rede neural artificial do tipo perceptron de camada única. O objetivo do aplicativo é a demonstração de como este modelo de rede neural é implementado na prática.
 
-Classe do Perceptron:
+Classe do perceptron no código-fonte do projeto:
 
 <pre>
     
@@ -8,6 +8,9 @@ package tests.android.ocr.perceptron
 
 import java.io.Serializable
 
+/**
+ * Classe que representa um Perceptron de camada única.
+ */
 class Perceptron(
 
     /**Número de entradas (features).*/
@@ -19,6 +22,7 @@ class Perceptron(
 ): Serializable {
 
 
+    // Manter a versão 1 para ser compatível com backup.
     companion object {
         private const val serialVersionUID: Long = 1L
     }
