@@ -11,12 +11,15 @@ class Perceptron(
     private val inputSize: Int,
 
     /**Número de neurônios de saída.*/
-    private val outputSize: Int,
-
-    /**Taxa de aprendizado usada para ajustar os pesos.*/
-    private val learningRate: Float
+    private val outputSize: Int
 
 ): Serializable {
+
+
+    // Manter a versão 1 para ser compatível com backup.
+    companion object {
+        private const val serialVersionUID: Long = 1L
+    }
 
 
     /**
@@ -50,15 +53,17 @@ class Perceptron(
      * processo iterativo de ajuste de pesos e viés (bias) com base nos erros, até que o modelo
      * consiga classificar corretamente todas as amostras de treinamento.
      *
-     * @param inputs matriz de entradas obtidas das amostras.
+     * @param samples amostras obtidas do banco de dados.
      *
-     * @param targets matriz de saídas esperadas.
+     * @param targets saídas esperadas.
      *
      * @param epochs número máximo de épocas para o treinamento.
      *
-     * @return número máximo de épocas necessárias para convergir (erro zero).
+     * @param learningRate taxa de aprendizado usada para ajustar os pesos.
+     *
+     * @return número de épocas para convergir (erro = zero).
      */
-    fun train(inputs: Array<FloatArray>, targets: Array<FloatArray>, epochs: Int): Int  {
+    fun train(samples: Array<FloatArray>, targets: Array<FloatArray>, epochs: Int, learningRate: Float): Int  {
 
         // Contador de épocas.
 
@@ -77,21 +82,21 @@ class Perceptron(
 
             // Loop que itera sobre cada amostra.
 
-            for (i in inputs.indices) {
+            for (i in samples.indices) {
 
                 // Vetor de entradas da amostra no índice i.
 
-                val input = inputs[i]
+                val input = samples[i]
 
                 // Vetor de saídas esperadas para a amostra no índice i.
 
                 val target = targets[i]
 
-                // Vetor de saídas calculadas.
+                // Neurônios de saída.
 
                 val outputs = FloatArray(outputSize)
 
-                // Loop que itera sob cada neurônio do vetor de saídas [outputs].
+                // Loop que itera sob cada neurônio de saída [outputs].
 
                 for (t in 0 until outputSize) {
 
@@ -137,14 +142,12 @@ class Perceptron(
 
                     totalError += kotlin.math.abs(error)
 
-                    // Loop que atualiza os pesos.
+                    // Loop que atualiza os pesos para cada entrada conectada ao neurônio t.
 
                     for (j in weights[t].indices) {
 
-                        // AJUSTE DOS PESOS:
-                        //
-                        // O peso de cada conexão é atualizado com base na regra de aprendizagem do
-                        // Perceptron:
+                        // O peso de cada conexão com o neurônio t é atualizado com base na regra de
+                        // aprendizagem do Perceptron:
                         //
                         //     w(novo) = w(antigo) + taxa_de_aprendizado ⋅ erro ⋅ entrada
                         //
@@ -156,7 +159,7 @@ class Perceptron(
                         //
                         // * taxa_de_aprendizado: Controla o tamanho do passo de ajuste. Um valor
                         // pequeno torna o aprendizado mais lento, mas mais estável; um valor grande
-                        // pode levar a instabilidade.
+                        // pode levar a instabilidade e não convergência.
                         //
                         // * erro: A direção do ajuste depende do erro. Se o erro for positivo, o
                         // peso aumenta; se for negativo, diminui. Se o erro for zero, o peso não
@@ -169,10 +172,8 @@ class Perceptron(
 
                     }
 
-                    // AJUSTE DO VIÉS (BIAS):
-                    //
-                    // Atualização do Viés: O viés é ajustado de maneira semelhante aos pesos, mas
-                    // sem a influência da entrada.
+                    // Ajuste do viés (bias) do neurônio t: O viés é ajustado de maneira semelhante
+                    // aos pesos, mas sem a influência da entrada.
                     //
                     //     b(novo) = b(antigo) + taxa_de_aprendizado ⋅ erro
                     //
@@ -226,7 +227,7 @@ class Perceptron(
      */
     fun calculate(input: FloatArray): FloatArray {
 
-        // Cria o vetor de saídas.
+        // Cria o vetor de neurônios de saída.
 
         val outputs = FloatArray(outputSize)
 
@@ -260,7 +261,7 @@ class Perceptron(
             // A função de ativação é a degrau binário, que produz uma saída de 1 se a soma ponderada
             // for não-negativa, e 0, caso contrário.
             //
-            // A saída para o neurônio de saída t é:
+            // A saída para o neurônio t é dada por:
             //
             //          ┌
             //          │ 1.0, se z[t] ≥ 0
@@ -268,14 +269,14 @@ class Perceptron(
             //          │ 0.0, se z[t] < 0
             //          └
             //
-            // Onde y[t] é a saída calculada para o neurônio de saída t.
+            // Onde y[t] é a saída calculada para o neurônio t.
 
             outputs[t] = activationFunction(weightedSum)
 
         }
 
-        // Retorna o vetor de saídas binárias. Neurônios ativados são representados por 1.0. Neurônios
-        // desativados são representados por 0.0.
+        // Retorna o vetor de neurônios de saída. Neurônios ativados são representados por 1.0.
+        // Neurônios desativados são representados por 0.0.
 
         return outputs
 

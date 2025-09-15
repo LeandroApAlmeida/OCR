@@ -9,7 +9,7 @@ import tests.android.ocr.database.model.Output
 
 /**
  * DAO para manutenção das saídas da rede neural. Cada saída corresponde à informação de símbolo a
- * ser reconhecido, valores das saídas esperadas e pronúncia do padrão pelo mecanismo de sintetizador
+ * ser reconhecido, valores das saídas-alvo e pronúncia do padrão pelo mecanismo de sintetizador
  * de fala.
  */
 @Dao

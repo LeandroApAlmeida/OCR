@@ -14,7 +14,7 @@ interface PerceptronRepository {
      *
      * @param bitmap imagem como padrão de entrada.
      *
-     * @return padrão de saída da rede neural.
+     * @return padrão de saída da rede neural, ou null, caso não tenha um padrão conhecido.
      */
     suspend fun calculateOutput(bitmap: Bitmap): Deferred<Output?>
 

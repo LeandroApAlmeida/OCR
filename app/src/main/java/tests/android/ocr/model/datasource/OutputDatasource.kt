@@ -10,11 +10,11 @@ import tests.android.ocr.model.repository.OutputRepository
 import javax.inject.Inject
 
 /**
- * Datasource para manutenção dos padrões de saída da rede neural.
+ * Datasource para manutenção das saídas da rede neural.
  */
 class OutputDatasource @Inject constructor(
 
-    /**DAO para manutenção dos padrões de saída da rede neural.*/
+    /**DAO para manutenção das saídas da rede neural.*/
     private val outputDao: OutputDao,
 
     /**DAO para manutenção dos parâmetros de treinamento da rede neural.*/
@@ -26,12 +26,11 @@ class OutputDatasource @Inject constructor(
     /**
      * Valida o formato das saídas alvo digitado. Uma saída-alvo deve ter o seguinte formato:
      *
-     * dddd ou d-d-d-d
+     * dddd
      *
      * Onde:
      *
      * d: Dígito 0 ou 1, representando saída desativada ou saída ativada, respectivamente.
-     * -: Caractere separador de dígitos.
      *
      */
     private suspend fun validateTarget(output: Output) {

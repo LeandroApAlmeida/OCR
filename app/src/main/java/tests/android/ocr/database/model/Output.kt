@@ -7,7 +7,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 /**
- * Classe de entidade que representa uma saída da rede neural. Basicamente, representa uma classe
+ * Classe de entidade que representa uma saída da rede neural. Uma saída, representa uma classe
  * que será reconhecida pelo Perceptron. Por exemplo, se o padrão a ser reconhecido é de caracteres
  * do alfabeto, o resultado do processo será um caractere 'a', 'b', 'c', etc.
  *

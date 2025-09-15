@@ -31,6 +31,11 @@ class ImageDialog(context: Context, val bitmap: Bitmap, val text: String, val nu
     private var onSaveButtonClickHandler: (() -> Unit)? = null
 
 
+    /**
+     * O evento [onCreate] é sobrescrito para inicializar o Dialog no modo padrão.
+     *
+     * @param savedInstanceState estado salvo para configurar uma nova instância.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

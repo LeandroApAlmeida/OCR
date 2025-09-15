@@ -61,7 +61,7 @@ class PerceptronDatasource @Inject constructor(
                 if (learning != null) {
 
                     // O objeto do Perceptron estará salvo na classe treinamento, não apenas os
-                    // pesos. Este objeto, portanto, já tem os pesos atualizados.
+                    // pesos. Este objeto, portanto, já tem os pesos e bias atualizados.
 
                     perceptron = deserializePerceptron(learning.data!!)
 
@@ -81,8 +81,7 @@ class PerceptronDatasource @Inject constructor(
             // Calcula as saídas, de acordo com o vetor de entradas e o treinamento do Perceptron.
             val result = perceptron!!.calculate(input.toFloatArray())
 
-            // Obtém todos os padrões de entradas para identificar o que corresponde às saídas
-            // calculadas.
+            // Obtém todas as saídas para identificar o que corresponde às saídas calculadas.
             val outputs = outputDao.getAllOutputs()
 
             // Padrão de entrada identificado.
@@ -92,8 +91,8 @@ class PerceptronDatasource @Inject constructor(
 
                 for (out in outputs) {
 
-                    // Vetor das saídas-alvo de um padrão de saída.
-                    val targetData = decodeTargetString(out.target.replace("-", ""))
+                    // Vetor das saídas-alvo do padrão listado.
+                    val targetData = decodeTargetString(out.target)
 
                     // Compara se as saídas-alvo são as mesmas do padrão retornado.
                     if (targetData.contentEquals(result.toTypedArray())) {
@@ -123,32 +122,37 @@ class PerceptronDatasource @Inject constructor(
             // Obtém o número máximo de épocas para o treinamento.
             val epochs = paramsDao.getEpochs()
 
-            // Obtém o número de entradas.
+            // Obtém o número de entradas do padrão.
             val inputSize = paramsDao.getInputSize()
 
             // Obtém o número de neurônios de saída.
             val outputSize = paramsDao.getOutputSize()
 
-            // Arranjo de vetores de entradas.
-            val trainingSamples = mutableListOf<FloatArray>()
+            // Arranjo de entradas das amostras. Cada entrada representa um pixel da amostra.
+            val samples = mutableListOf<FloatArray>()
 
-            // Arranjo de vetores de saídas-alvo.
-            val trainingOutputs = mutableListOf<FloatArray>()
+            // Arranjo de saídas-alvo, uma para cada respectiva amostra. Por exemplo:
+            //
+            //     samples[0] -> targets[0]
+            //
+            // Significa amostra na posição 0 e suas respectivas saídas-alvo na mesma posição do
+            // arranjo de saídas-alvo.
+            val targets = mutableListOf<FloatArray>()
 
-            // Obtém todos os padrões de saída da rede neural, que correspondem às classes que
-            // serão reconhecidas pela mesma.
+            // Obtém todas as saídas da rede neural, que correspondem às classes que serão
+            // reconhecidas pela mesma.
             val outputs = outputDao.getAllOutputs()
 
-            // Loop para recuperar as amostras de acordo com cada padrão de saída.
+            // Loop para recuperar as amostras de acordo com cada saída.
 
             outputs?.forEach { output: Output ->
 
-                // Obtém todas as amostras relacionadas com o padrão de saída.
-                val samples = sampleDao.getAllSamples(output.id)
+                // Obtém todas as amostras relacionadas com a saída.
+                val samplesByOutput = sampleDao.getAllSamples(output.id)
 
                 // Loop para converter cada amostra em seu respectivo vetor de entradas.
 
-                samples?.forEach { sample: Sample ->
+                samplesByOutput?.forEach { sample: Sample ->
 
                     // Recupera o bitmap da amostra.
                     val bitmap = imageBuilder.imageStreamToBitmap(sample.data!!)
@@ -156,8 +160,8 @@ class PerceptronDatasource @Inject constructor(
                     // Converte o bitmap da amostra em seu respectivo vetor de entradas.
                     val floatArray = imageBuilder.bitmapToFloatArray(bitmap)
 
-                    // Obtém o padrão que representa as saídas-alvo para a amostra.
-                    val target = output.target.replace("-", "")
+                    // Obtém as saídas-alvo para a amostra.
+                    val target = output.target
 
                     // Valida se o padrão tem o tamanho correto configurado.
                     if (target.length != paramsDao.getOutputSize()) {
@@ -165,23 +169,28 @@ class PerceptronDatasource @Inject constructor(
                     }
 
                     // Adiciona o vetor de entradas da amostra ao respectivo arranjo.
-                    trainingSamples.add(floatArray.toFloatArray())
+                    samples.add(floatArray.toFloatArray())
 
                     // Adiciona o vetor de saídas-alvo ao respectivo arranjo.
-                    trainingOutputs.add(decodeTargetString(target).toFloatArray())
+                    targets.add(decodeTargetString(target).toFloatArray())
+
+                    // Ao adicionar as entradas e saídas-alvo, ambos ficarão na mesma posição
+                    // em seus respectivos arranjos. Isso é crucial para o treinamento da rede
+                    // neural.
 
                 }
 
             }
 
             // Instancia o objeto de Perceptron.
-            perceptron = Perceptron(inputSize, outputSize, learningRate)
+            perceptron = Perceptron(inputSize, outputSize)
 
             // Realiza o treinamento da rede neural de acordo com os Parâmetros.
             val iterations = perceptron!!.train(
-                trainingSamples.toTypedArray(),
-                trainingOutputs.toTypedArray(),
-                epochs
+                samples.toTypedArray(),
+                targets.toTypedArray(),
+                epochs,
+                learningRate
             )
 
             // Atualiza o treinamento da rede neural no banco de dados. Ao invéz de gravar apenas

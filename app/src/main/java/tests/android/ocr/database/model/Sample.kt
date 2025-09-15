@@ -39,7 +39,7 @@ data class Sample (
     @ColumnInfo(name = "id")
     var id: Long,
 
-    /**Identificador chave estrangeira para a respectiva saída alvo da amostra.*/
+    /**Identificador chave estrangeira para a respectiva saída da amostra.*/
     @ColumnInfo(name = "id_output")
     var idOutput: Long,
 

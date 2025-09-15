@@ -13,10 +13,10 @@
         android:text="Treinando o Perceptron. Por favor, aguarde!"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/imbMainImage"
+            android:id="@+id/imb_image"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -38,7 +38,7 @@
             app:srcCompat="@drawable/speaker_icon" />
 
         <ImageButton
-            android:id="@+id/imbMainClean"
+            android:id="@+id/imb_clean"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -54,7 +54,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swcMainTraining">
+        app:layout_constraintTop_toBottomOf="@+id/swcTraining">
 
         <tests.android.ocr.ui.component.PaintView
             android:id="@+id/paintView"
@@ -64,7 +64,7 @@
     </RelativeLayout>
 
     <Switch
-        android:id="@+id/swcMainTraining"
+        android:id="@+id/swcTraining"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
@@ -74,12 +74,12 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <Spinner
-        android:id="@+id/spnMainSymbol"
+        android:id="@+id/spn_symbol"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginStart="60dp"
-        app:layout_constraintStart_toEndOf="@+id/swcMainTraining"
-        app:layout_constraintTop_toTopOf="@+id/swcMainTraining" />
+        app:layout_constraintStart_toEndOf="@+id/swcTraining"
+        app:layout_constraintTop_toTopOf="@+id/swcTraining" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
@@ -95,7 +95,7 @@
         app:title="OCR" />
 
     <ImageButton
-        android:id="@+id/imbMainTraining"
+        android:id="@+id/imb_training"
         android:layout_width="wrap_content"
         android:layout_height="54dp"
         android:layout_marginEnd="5dp"
@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Simb.:"
-        app:layout_constraintEnd_toStartOf="@+id/spnMainSymbol"
-        app:layout_constraintTop_toTopOf="@+id/spnMainSymbol" />
+        app:layout_constraintEnd_toStartOf="@+id/spn_symbol"
+        app:layout_constraintTop_toTopOf="@+id/spn_symbol" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

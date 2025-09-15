@@ -13,21 +13,21 @@ import tests.android.ocr.model.repository.ParamsRepository
 import javax.inject.Inject
 
 /**
- * ViewModel para manutenção de padrões de saída da rede neural.
+ * ViewModel para manutenção de saídas da rede neural.
  */
 @HiltViewModel
 class OutputViewModel @Inject constructor(
 
-    /**Repositório para manutenção de padrões de saída da rede neural.*/
+    /**Repositório para manutenção de saídas da rede neural.*/
     private val outputRepository: OutputRepository
 
 ): ViewModel() {
 
 
     /**
-     * Inserir um novo padrão de saída da rede neural.
+     * Inserir uma nova saída da rede neural.
      *
-     * @param output padrão de saída da rede neural a ser inserido.
+     * @param output saída da rede neural a ser inserida.
      *
      * @param listener ouvinte da corrotina.
      */
@@ -47,9 +47,9 @@ class OutputViewModel @Inject constructor(
 
 
     /**
-     * Atualizar um padrão de saída da rede neural.
+     * Atualizar uma saída da rede neural.
      *
-     * @param output padrão de saída da rede neural a ser atualizado.
+     * @param output saída da rede neural a ser atualizada.
      *
      * @param listener ouvinte da corrotina.
      */
@@ -69,9 +69,9 @@ class OutputViewModel @Inject constructor(
 
 
     /**
-     * Excluir um padrão de saída da rede neural.
+     * Excluir uma saída da rede neural.
      *
-     * @param output padrão de saída da rede neural a ser excluído.
+     * @param output saída da rede neural a ser excluída.
      *
      * @param listener ouvinte da corrotina.
      */
@@ -91,9 +91,9 @@ class OutputViewModel @Inject constructor(
 
 
     /**
-     * Excluir uma lista de padrões de saída da rede neural.
+     * Excluir uma lista de saídas da rede neural.
      *
-     * @param outputList lista de padrões de saída a serem excluídos.
+     * @param outputList lista de saídas a serem excluídas.
      *
      * @param listener ouvinte da corrotina.
      */
@@ -113,11 +113,11 @@ class OutputViewModel @Inject constructor(
 
 
     /**
-     * Obter todos os padrões de saída da rede neural.
+     * Obter todas as saídas da rede neural.
      *
      * @param listener ouvinte da corrotina.
      *
-     * @return lista com todos os padrões de saída da rede neural.
+     * @return lista com todas as saídas da rede neural.
      */
     fun getAllOutputs(listener: CoroutineListener): LiveData<List<Output>?> {
 
@@ -134,13 +134,13 @@ class OutputViewModel @Inject constructor(
 
 
     /**
-     * Obter o padrão de saída da rede neural pelo identificador chave primária.
+     * Obter a saída da rede neural pelo identificador chave primária.
      *
-     * @param idOutput identificador chave primária do padrão de saída da rede neural.
+     * @param idOutput identificador chave primária da saída da rede neural.
      *
      * @param listener ouvinte da corrotina.
      *
-     * @return padrão de saída da rede neural relacionado, ou null, caso não seja encontrado.
+     * @return saída da rede neural relacionada, ou null, caso não seja encontrada.
      */
     fun getOutputById(idOutput: Long, listener: CoroutineListener): LiveData<Output?> {
 

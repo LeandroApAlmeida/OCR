@@ -4,51 +4,51 @@ import kotlinx.coroutines.Deferred
 import tests.android.ocr.database.model.Output
 
 /**
- * Repositório para manutenção de padrões de saída da rede neural.
+ * Repositório para manutenção de saídas da rede neural.
  */
 interface OutputRepository {
 
     /**
-     * Inserir um novo padrão de saída da rede neural.
+     * Inserir uma nova saída da rede neural.
      *
-     * @param output padrão de saída da rede neural a ser inserido.
+     * @param output saída da rede neural a ser inserida.
      */
     suspend fun insertOutput(output: Output)
 
     /**
-     * Atualizar um padrão de saída da rede neural.
+     * Atualizar uma saída da rede neural.
      *
-     * @param output padrão de saída da rede neural a ser atualizado.
+     * @param output saída da rede neural a ser atualizada.
      */
     suspend fun updateOutput(output: Output)
 
     /**
-     * Excluir um padrão de saída da rede neural.
+     * Excluir uma saída da rede neural.
      *
-     * @param output padrão de saída da rede neural a ser excluído.
+     * @param output saída da rede neural a ser excluída.
      */
     suspend fun deleteOutput(output: Output)
 
     /**
-     * Excluir uma lista de padrões de saída da rede neural.
+     * Excluir uma lista de saídas da rede neural.
      *
-     * @param outputList lista de padrões de saída a serem excluídos.
+     * @param outputList lista de saídas a serem excluídas.
      */
     suspend fun deleteAllOutputs(outputList: List<Output>)
 
     /**
-     * Obter todos os padrões de saída da rede neural.
+     * Obter todas saídas da rede neural.
      *
-     * @return lista com todos os padrões de saída da rede neural.
+     * @return lista com todas as saídas da rede neural.
      */
     suspend fun getAllOutputs(): Deferred<List<Output>?>
 
     /**
-     * Obter o padrão de saída da rede neural pelo identificador chave primária.
+     * Obter a saída da rede neural pelo identificador chave primária.
      *
-     * @param idOutput identificador chave primária do padrão de saída da rede neural.
+     * @param idOutput identificador chave primária dq saída da rede neural.
      *
-     * @return padrão de saída da rede neural relacionado, ou null, caso não seja encontrado.
+     * @return saída da rede neural relacionada, ou null, caso não seja encontradq.
      */
     suspend fun getOutputById(idOutput: Long): Deferred<Output?>
 

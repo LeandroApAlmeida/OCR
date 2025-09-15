@@ -16,15 +16,25 @@ import tests.android.ocr.model.viewmodel.CoroutineListener
 import tests.android.ocr.model.viewmodel.OutputViewModel
 import tests.android.ocr.ui.recyclerview.adapter.SelectableAdapter
 
+/**
+ * Activity para manutenção das saídas da rede neural cadastradas no banco de dados.
+ */
 @AndroidEntryPoint
 class OutputManagerActivity : AppCompatActivity(), CoroutineListener {
 
 
+    /**Componente para acesso aos controles da tela.*/
     private lateinit var binding: ActivityOutputManagerBinding
 
+    /**ViewModel para manutenção de saídas da rede neural.*/
     private val outputViewModel: OutputViewModel by viewModels()
 
 
+    /**
+     * O evento [onCreate] é sobrescrito para inicializar a Activity no modo padrão.
+     *
+     * @param savedInstanceState estado salvo para configurar uma nova instância.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -53,12 +63,19 @@ class OutputManagerActivity : AppCompatActivity(), CoroutineListener {
     }
 
 
+    /**
+     * O evento [onResume] do ciclo de vida da Activity é sobrescrito para tratar a reexibição da
+     * mesma.
+     */
     override fun onResume() {
         super.onResume()
         listOutputs()
     }
 
 
+    /**
+     * Listar as saídas cadastradas.
+     */
     private fun listOutputs() {
 
         outputViewModel.getAllOutputs(this).observe(this) { outputList ->
@@ -81,11 +98,17 @@ class OutputManagerActivity : AppCompatActivity(), CoroutineListener {
     }
 
 
+    /**
+     * Tratador do evento de clique no botão "Adicionar saída".
+     */
     fun onAddButtonClick(view: View) {
         startActivity(Intent(this, OutputActivity::class.java))
     }
 
 
+    /**
+     * Tratador do evento de clique no botão "Editar saída".
+     */
     fun onEditButtonClick(view: View) {
 
         val customAdapter = (binding.rcvOutputManList.adapter as CustomAdapter)
@@ -99,6 +122,9 @@ class OutputManagerActivity : AppCompatActivity(), CoroutineListener {
     }
 
 
+    /**
+     * Tratador do evento de clique no botão "Excluir saída".
+     */
     fun onDeleteButtonClick(view: View) {
 
         val owner = this
@@ -120,6 +146,11 @@ class OutputManagerActivity : AppCompatActivity(), CoroutineListener {
     }
 
 
+    /**
+     * Tratador de exceção lançada na corrotina.
+     *
+     * @param ex exceção lançada na corrotina.
+     */
     override fun onCoroutineException(ex: Throwable) {
 
         with(AlertDialog.Builder(this)) {
@@ -133,7 +164,7 @@ class OutputManagerActivity : AppCompatActivity(), CoroutineListener {
 
 
     /**
-     * Adaptador de seleção para listagem de municípios na RecyclerView.
+     * Adaptador de seleção para listagem de saídas na RecyclerView.
      */
     private inner class CustomAdapter: SelectableAdapter<Output>(R.layout.output_layout) {
 

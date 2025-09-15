@@ -24,21 +24,34 @@ import tests.android.ocr.model.viewmodel.OutputViewModel
 import tests.android.ocr.model.viewmodel.SampleViewModel
 import tests.android.ocr.image.ImageBuilder
 
+/**
+ * Activity para manutenção das amostras casdastradas no banco de dados.
+ */
 @AndroidEntryPoint
 class SamplesActivity : AppCompatActivity(), CoroutineListener {
 
 
+    /**Componente para acesso aos controles da tela.*/
     private lateinit var binding: ActivitySamplesBinding
 
+    /**ViewModel para manutenção das amostras no banco de dados.*/
     private val sampleViewModel: SampleViewModel by viewModels()
 
+    /**ViewModel para manutenção de saídas da rede neural.*/
     private val outputViewModel: OutputViewModel by viewModels()
 
+    /**Objeto para processamento de imagem obtida do banco de dados.*/
     private lateinit var imageBuilder: ImageBuilder
 
+    /**Objeto de saída selecionado na lista.*/
     private var output: Output? = null
 
 
+    /**
+     * O evento [onCreate] é sobrescrito para inicializar a Activity no modo padrão.
+     *
+     * @param savedInstanceState estado salvo para configurar uma nova instância.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -77,12 +90,19 @@ class SamplesActivity : AppCompatActivity(), CoroutineListener {
     }
 
 
+    /**
+     * O evento [onResume] do ciclo de vida da Activity é sobrescrito para tratar a reexibição da
+     * mesma.
+     */
     override fun onResume() {
         super.onResume()
         listOutputs()
     }
 
 
+    /**
+     * Listar as saídas na lista de seleção.
+     */
     private fun listOutputs() {
 
         outputViewModel.getAllOutputs(this).observe(this) { outputList ->
@@ -120,6 +140,9 @@ class SamplesActivity : AppCompatActivity(), CoroutineListener {
     }
 
 
+    /**
+     * Listar as amostras cadastradas de acordo com a saída selecionada na lista.
+     */
     private fun listSamples() {
 
         sampleViewModel.getAllSamples(output!!.id, true, this).observe(this) { samplesList ->
@@ -147,6 +170,9 @@ class SamplesActivity : AppCompatActivity(), CoroutineListener {
     }
 
 
+    /**
+     * Tratador do evento de clique no botão "Excluir amostra".
+     */
     fun onDeleteButtonClick(view: View) {
 
         val owner = this
@@ -168,6 +194,9 @@ class SamplesActivity : AppCompatActivity(), CoroutineListener {
     }
 
 
+    /**
+     * Tratador do evento de clique no botão "Detalhes da amostra".
+     */
     fun onDetailsButtonClick(view: View) {
 
         val customAdapter = (binding.rcvSamples.adapter as CustomAdapter)
@@ -187,6 +216,11 @@ class SamplesActivity : AppCompatActivity(), CoroutineListener {
     }
 
 
+    /**
+     * Tratador de exceção lançada na corrotina.
+     *
+     * @param ex exceção lançada na corrotina.
+     */
     override fun onCoroutineException(ex: Throwable) {
 
         with(AlertDialog.Builder(this)) {
@@ -199,6 +233,9 @@ class SamplesActivity : AppCompatActivity(), CoroutineListener {
     }
 
 
+    /**
+     * Adaptador de seleção para listagem de amostras na RecyclerView.
+     */
     private inner class CustomAdapter(val owner: SamplesActivity): SelectableAdapter<Sample>(R.layout.sample_layout, false) {
 
         override fun compareItemsContents(oldItem: Sample, newItem: Sample): Boolean {

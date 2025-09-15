@@ -26,13 +26,13 @@ class PerceptronViewModel @Inject constructor (
 
 
     /**
-     * Reconhecer um padrão de entrada, produzindo um padrão de saída da rede neural.
+     * Reconhecer uma imagem de entrada, produzindo uma saída da rede neural.
      *
      * @param bitmap imagem como padrão de entrada.
      *
      * @param listener ouvinte da corrotina.
      *
-     * @return padrão de saída da rede neural.
+     * @return padrão de saída da rede neural, ou null, caso não tenha uma saída associada à entrada.
      */
     fun calculateOutput(bitmap: Bitmap, listener: CoroutineListener): LiveData<Output?> {
 

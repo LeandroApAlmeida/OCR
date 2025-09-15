@@ -13,19 +13,31 @@ import tests.android.ocr.model.viewmodel.CoroutineListener
 import tests.android.ocr.model.viewmodel.OutputViewModel
 import tests.android.ocr.model.viewmodel.ParamsViewModel
 
+/**
+ * Activity para cadastro das saídas da rede neural.
+ */
 @AndroidEntryPoint
 class OutputActivity : AppCompatActivity(), CoroutineListener {
 
 
+    /**Componente para acesso aos controles da tela.*/
     private lateinit var binding: ActivityOutputBinding
 
+    /**ViewModel para manutenção de saídas da rede neural.*/
     private val outputViewModel: OutputViewModel by viewModels()
 
+    /**ViewModel para manutenção dos parâmetros de treinamento da rede neural.*/
     private val paramsViewModel: ParamsViewModel by viewModels()
 
+    /**Saída a ter o cadastro alterado.*/
     private var output: Output? = null
 
 
+    /**
+     * O evento [onCreate] é sobrescrito para inicializar a Activity no modo correto (inserção/edição).
+     *
+     * @param savedInstanceState estado salvo para configurar uma nova instância.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -47,7 +59,6 @@ class OutputActivity : AppCompatActivity(), CoroutineListener {
 
             binding.edtOutputTarget.filters = arrayOf(InputFilter.LengthFilter(outputSize))
 
-
         } catch (_: Exception) {
 
             binding.txvTargetLength.text = "Saídas-alvo:"
@@ -55,12 +66,18 @@ class OutputActivity : AppCompatActivity(), CoroutineListener {
         }
 
         if (intent.extras != null) {
+            // Define o modo de edição.
             setOutput(intent.extras!!.getLong("id"))
         }
 
     }
 
 
+    /**
+     * Define o modo como edição.
+     *
+     * @param id identificador chave primária da saída a ser editada.
+     */
     private fun setOutput(id: Long) {
 
         outputViewModel.getOutputById(id, this).observe(this) { output ->
@@ -80,6 +97,9 @@ class OutputActivity : AppCompatActivity(), CoroutineListener {
     }
 
 
+    /**
+     * Tratador do evento de clique nos botão "Salvar".
+     */
     private fun onSaveButtonClick(view: View) {
 
         val symbol = binding.edtOutputSymbol.text.toString()
@@ -135,11 +155,19 @@ class OutputActivity : AppCompatActivity(), CoroutineListener {
     }
 
 
+    /**
+     * Tratador de clique no botão "Cancelar".
+     */
     private fun onCancelButtonClick(view: View) {
         finish()
     }
 
 
+    /**
+     * Tratador de exceção lançada na corrotina.
+     *
+     * @param ex exceção lançada na corrotina.
+     */
     override fun onCoroutineException(ex: Throwable) {
         with(AlertDialog.Builder(this)) {
             setTitle("Erro")
