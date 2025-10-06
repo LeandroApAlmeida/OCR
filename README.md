@@ -231,7 +231,7 @@ class Perceptron(
      *
      * @return saídas calculadas.
      */
-    fun calculate(input: FloatArray): FloatArray {
+    fun predict(input: FloatArray): FloatArray {
 
         // Cria o vetor de neurônios de saída.
 
