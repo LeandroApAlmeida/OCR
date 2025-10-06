@@ -20,7 +20,7 @@ interface SampleDao {
      * @param sample amostra a ser inserida.
      */
     @Insert
-    suspend fun insertSample(sample: Sample): Long
+    suspend fun insert(sample: Sample): Long
 
 
     /**
@@ -29,7 +29,7 @@ interface SampleDao {
      * @param sample amostra a ser atualizada.
      */
     @Update
-    suspend fun updateSample(sample: Sample)
+    suspend fun update(sample: Sample)
 
 
     /**
@@ -38,7 +38,7 @@ interface SampleDao {
      * @param sample amostra a ser excluída.
      */
     @Delete
-    suspend fun deleteSample(sample: Sample)
+    suspend fun delete(sample: Sample)
 
 
     /**
@@ -47,7 +47,7 @@ interface SampleDao {
      * @param list lista de amostras a serem excluídas.
      */
     @Delete
-    suspend fun deleteAllSamples(list: List<Sample>)
+    suspend fun deleteAll(list: List<Sample>)
 
 
     /**
@@ -58,7 +58,7 @@ interface SampleDao {
      * @return lista com as amostras associadas com o padrão de saída da rede neural.
      */
     @Query("SELECT * FROM sample WHERE id_output = :idOutput ORDER BY id")
-    suspend fun getAllSamples(idOutput: Long): List<Sample>?
+    suspend fun getAll(idOutput: Long): List<Sample>?
 
 
     /**
@@ -70,7 +70,7 @@ interface SampleDao {
      * @return lista com as amostras associadas com o padrão de saída da rede neural.
      */
     @Query("SELECT id, id_output FROM sample WHERE id_output = :idOutput ORDER BY id")
-    suspend fun getAllSamplesLite(idOutput: Long): List<Sample>?
+    suspend fun getAllLite(idOutput: Long): List<Sample>?
 
 
     /**
@@ -81,7 +81,7 @@ interface SampleDao {
      * @return amostra relacionada, ou null, caso a amostra não seja encontrada.
      */
     @Query("SELECT * FROM sample WHERE id = :id")
-    suspend fun getSampleById(id: Long): Sample?
+    suspend fun getById(id: Long): Sample?
 
 
     /**
@@ -92,7 +92,7 @@ interface SampleDao {
      * @return dados da amostra relacionada, ou null, caso a amostra não seja encontrada.
      */
     @Query("SELECT data FROM sample WHERE id = :id")
-    suspend fun getSampleDataById(id: Long): ByteArray?
+    suspend fun getDataById(id: Long): ByteArray?
 
 
     /**
@@ -101,7 +101,7 @@ interface SampleDao {
      * @return número total de amostras no banco de dados.
      */
     @Query("SELECT count(*) FROM sample")
-    suspend fun getTotalSamples(): Int
+    suspend fun getTotal(): Int
 
 
     /**
@@ -112,7 +112,7 @@ interface SampleDao {
      * @return número total de amostras por padrão de saída da rede neural.
      */
     @Query("SELECT count(*) FROM sample WHERE id_output = :idOutput")
-    suspend fun getTotalSamplesByOutput(idOutput: Long): Int
+    suspend fun getTotalByOutput(idOutput: Long): Int
 
 
 }

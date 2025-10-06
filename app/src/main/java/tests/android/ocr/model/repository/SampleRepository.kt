@@ -13,28 +13,28 @@ interface SampleRepository {
      *
      * @param sample amostra a ser inserida.
      */
-    suspend fun insertSample(sample: Sample)
+    suspend fun insert(sample: Sample)
 
     /**
      * Atualizar uma amostra.
      *
      * @param sample amostra a ser atualizada.
      */
-    suspend fun updateSample(sample: Sample)
+    suspend fun update(sample: Sample)
 
     /**
      * Excluir uma amostra.
      *
      * @param sample amostra a ser excluída.
      */
-    suspend fun deleteSample(sample: Sample)
+    suspend fun delete(sample: Sample)
 
     /**
      * Excluir uma lista de amostras.
      *
      * @param list lista de amostras a serem excluídas.
      */
-    suspend fun deleteAllSamples(samplesList: List<Sample>)
+    suspend fun deleteAll(samplesList: List<Sample>)
 
     /**
      * Obter todas as amostras de acordo com o padrão de saída da rede neural.
@@ -45,7 +45,7 @@ interface SampleRepository {
      *
      * @return lista com as amostras associadas com o padrão de saída da rede neural.
      */
-    suspend fun getAllSamples(idOutput: Long, lite: Boolean): Deferred<List<Sample>?>
+    suspend fun getAll(idOutput: Long, lite: Boolean): Deferred<List<Sample>?>
 
     /**
      * Obter uma amostra pelo seu identificador chave primária.
@@ -54,7 +54,7 @@ interface SampleRepository {
      *
      * @return amostra relacionada, ou null, caso a amostra não seja encontrada.
      */
-    suspend fun getSampleById(idSample: Long): Deferred<Sample?>
+    suspend fun getById(idSample: Long): Deferred<Sample?>
 
     /**
      * Obter os dados da amostra identificada pelo identificador chave primária.
@@ -63,14 +63,14 @@ interface SampleRepository {
      *
      * @return dados da amostra relacionada, ou null, caso a amostra não seja encontrada.
      */
-    suspend fun getSampleDataById(idSample: Long): Deferred<ByteArray?>
+    suspend fun getDataById(idSample: Long): Deferred<ByteArray?>
 
     /**
      * Obter o número total de amostras no banco de dados.
      *
      * @return número total de amostras no banco de dados.
      */
-    suspend fun getTotalSamples(): Deferred<Int>
+    suspend fun getTotal(): Deferred<Int>
 
     /**
      * Obter o número total de amostras por padrão de saída da rede neural.
@@ -79,6 +79,6 @@ interface SampleRepository {
      *
      * @return número total de amostras por padrão de saída da rede neural.
      */
-    suspend fun getTotalSamplesByOutput(idOutput: Long): Deferred<Int>
+    suspend fun getTotalByOutput(idOutput: Long): Deferred<Int>
 
 }

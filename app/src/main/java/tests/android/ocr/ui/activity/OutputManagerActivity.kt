@@ -78,7 +78,7 @@ class OutputManagerActivity : AppCompatActivity(), CoroutineListener {
      */
     private fun listOutputs() {
 
-        outputViewModel.getAllOutputs(this).observe(this) { outputList ->
+        outputViewModel.getAll(this).observe(this) { outputList ->
 
             if (outputList != null) {
 
@@ -135,7 +135,7 @@ class OutputManagerActivity : AppCompatActivity(), CoroutineListener {
             setTitle("Atenção")
             setMessage("Confirma a exclusão do(s) item(ns) selecionado(s)?")
             setPositiveButton("Sim") { _, _ ->
-                outputViewModel.deleteAllOutputs(selectedOutputs, owner).observe(owner) {
+                outputViewModel.deleteAll(selectedOutputs, owner).observe(owner) {
                     listOutputs()
                 }
             }

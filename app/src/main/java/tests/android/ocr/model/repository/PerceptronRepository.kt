@@ -16,13 +16,13 @@ interface PerceptronRepository {
      *
      * @return padrão de saída da rede neural, ou null, caso não tenha um padrão conhecido.
      */
-    suspend fun calculateOutput(bitmap: Bitmap): Deferred<Output?>
+    suspend fun predict(bitmap: Bitmap): Deferred<Output?>
 
     /**
      * Treinar o perceptron com as amostras obtidas do banco de dados.
      *
      * @return número de épocas para o treinamento.
      */
-    suspend fun trainPerceptron(): Deferred<Int>
+    suspend fun train(): Deferred<Int>
 
 }

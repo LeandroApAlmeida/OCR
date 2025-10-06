@@ -22,7 +22,7 @@ interface OutputDao {
      * @param output saída da rede neural a ser inserida.
      */
     @Insert
-    suspend fun insertOutput(output: Output): Long
+    suspend fun insert(output: Output): Long
 
 
     /**
@@ -31,7 +31,7 @@ interface OutputDao {
      * @param output saída da rede neural a ser atualizada.
      */
     @Update
-    suspend fun updateOutput(output: Output)
+    suspend fun update(output: Output)
 
 
     /**
@@ -40,7 +40,7 @@ interface OutputDao {
      * @param output saída da rede neural a ser excluída.
      */
     @Delete
-    suspend fun deleteOutput(output: Output)
+    suspend fun delete(output: Output)
 
 
     /**
@@ -49,7 +49,7 @@ interface OutputDao {
      * @param outputList lista de saídas a serem excluídas.
      */
     @Delete
-    suspend fun deleteAllOutputs(outputList: List<Output>)
+    suspend fun deleteAll(outputList: List<Output>)
 
 
     /**
@@ -58,7 +58,7 @@ interface OutputDao {
      * @return lista com todas as saídas da rede neural.
      */
     @Query("SELECT * FROM output ORDER BY symbol ASC")
-    suspend fun getAllOutputs(): List<Output>?
+    suspend fun getAll(): List<Output>?
 
 
     /**
@@ -67,7 +67,7 @@ interface OutputDao {
      * @param id identificador chave primária da saída da rede neural.
      */
     @Query("SELECT * FROM output WHERE id = :id")
-    suspend fun getOutputById(id: Long): Output?
+    suspend fun getById(id: Long): Output?
 
 
 }

@@ -20,7 +20,7 @@ interface LearningDao {
      * @param learning aprendizado a ser gravado.
      */
     @Insert
-    suspend fun insertLearning(learning: Learning)
+    suspend fun insert(learning: Learning)
 
 
     /**
@@ -29,7 +29,7 @@ interface LearningDao {
      * @param learning aprendizado a ser atualizado.
      */
     @Update
-    suspend fun updateLearning(learning: Learning)
+    suspend fun update(learning: Learning)
 
 
     /**
@@ -38,14 +38,14 @@ interface LearningDao {
      * @param learning aprendizado da rede neural.
      */
     @Transaction
-    suspend fun setLearning(learning: Learning) {
+    suspend fun set(learning: Learning) {
 
-        val learning2 = getLearning()
+        val learning2 = get()
 
         if (learning2 != null) {
-            updateLearning(learning)
+            update(learning)
         } else {
-            insertLearning(learning)
+            insert(learning)
         }
 
     }
@@ -57,7 +57,7 @@ interface LearningDao {
      * @return aprendizado da rede neural.
      */
     @Query("SELECT * FROM learning WHERE id = (SELECT max(id) FROM learning)")
-    suspend fun getLearning(): Learning?
+    suspend fun get(): Learning?
 
 
 }

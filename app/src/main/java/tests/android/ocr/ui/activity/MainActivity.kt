@@ -269,7 +269,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, Coroutine
      */
     private fun listOutputs() {
 
-        outputViewModel.getAllOutputs(this).observe(this) { outputList ->
+        outputViewModel.getAll(this).observe(this) { outputList ->
 
             if (outputList != null) {
 
@@ -399,13 +399,13 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, Coroutine
 
             val bitmap = imageBuilder.createSampleBitmap(binding.paintView.getBitmap(), imageScale)
 
-            sampleViewModel.getTotalSamplesByOutput(output!!.id, this).observe(this) { total ->
+            sampleViewModel.getTotalByOutput(output!!.id, this).observe(this) { total ->
 
                 ImageDialog(this, bitmap, output!!.symbol, total + 1).setOnSaveButtonClickHandler {
 
                     val sample = Sample(0, output!!.id, imageBuilder.bitmapToImageStream(bitmap))
 
-                    sampleViewModel.insertSample(sample, this).observe(this)  {
+                    sampleViewModel.insert(sample, this).observe(this)  {
                         binding.paintView.cleanImage()
                     }
 
@@ -445,7 +445,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, Coroutine
             binding.imbClean.alpha = 0.5f
             binding.swcTraining.isEnabled = false
 
-            perceptronViewModel.calculateOutput(bitmap, this).observe(this) { output ->
+            perceptronViewModel.predict(bitmap, this).observe(this) { output ->
 
                 if (output != null) {
 
@@ -523,7 +523,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, Coroutine
         menu!!.findItem(R.id.menuSettings).isEnabled = false
         menu!!.findItem(R.id.menuAbout).isEnabled = false
 
-        perceptronViewModel.trainPerceptron(this).observe(this) { iterations ->
+        perceptronViewModel.train(this).observe(this) { iterations ->
 
             val msg: String = if (iterations > 0) {
                 "A rede neural Perceptron foi treinada com sucesso em ${iterations} interações."

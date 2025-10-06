@@ -47,7 +47,7 @@ class PerceptronDatasource @Inject constructor(
     private val imageBuilder: ImageBuilder = ImageBuilder()
 
 
-    override suspend fun calculateOutput(bitmap: Bitmap) = withContext(Dispatchers.IO) {
+    override suspend fun predict(bitmap: Bitmap) = withContext(Dispatchers.IO) {
 
         async {
 
@@ -56,7 +56,7 @@ class PerceptronDatasource @Inject constructor(
             if (perceptron == null) {
 
                 // Obtém o treinamento da rede neural a partir do banco de dados.
-                val learning = learningDao.getLearning()
+                val learning = learningDao.get()
 
                 if (learning != null) {
 
@@ -79,10 +79,10 @@ class PerceptronDatasource @Inject constructor(
             val input = imageBuilder.bitmapToFloatArray(bitmap)
 
             // Calcula as saídas, de acordo com o vetor de entradas e o treinamento do Perceptron.
-            val result = perceptron!!.calculate(input.toFloatArray())
+            val result = perceptron!!.predict(input.toFloatArray())
 
             // Obtém todas as saídas para identificar o que corresponde às saídas calculadas.
-            val outputs = outputDao.getAllOutputs()
+            val outputs = outputDao.getAll()
 
             // Padrão de entrada identificado.
             var output: Output? = null
@@ -112,7 +112,7 @@ class PerceptronDatasource @Inject constructor(
     }
 
 
-    override suspend fun trainPerceptron() = withContext(Dispatchers.IO) {
+    override suspend fun train() = withContext(Dispatchers.IO) {
 
         async {
 
@@ -141,14 +141,14 @@ class PerceptronDatasource @Inject constructor(
 
             // Obtém todas as saídas da rede neural, que correspondem às classes que serão
             // reconhecidas pela mesma.
-            val outputs = outputDao.getAllOutputs()
+            val outputs = outputDao.getAll()
 
             // Loop para recuperar as amostras de acordo com cada saída.
 
             outputs?.forEach { output: Output ->
 
                 // Obtém todas as amostras relacionadas com a saída.
-                val samplesByOutput = sampleDao.getAllSamples(output.id)
+                val samplesByOutput = sampleDao.getAll(output.id)
 
                 // Loop para converter cada amostra em seu respectivo vetor de entradas.
 
@@ -195,7 +195,7 @@ class PerceptronDatasource @Inject constructor(
 
             // Atualiza o treinamento da rede neural no banco de dados. Ao invéz de gravar apenas
             // os pesos ajustados, grava o objeto de Perceptron na tabela do banco de dados.
-            learningDao.setLearning( Learning(1, serializePerceptron(perceptron!!)) )
+            learningDao.set( Learning(1, serializePerceptron(perceptron!!)) )
 
             // Retorna o número de épocas até a convergência da rede neural.
             iterations

@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import tests.android.ocr.database.model.Learning
 import tests.android.ocr.database.model.Output
 import tests.android.ocr.model.repository.PerceptronRepository
 import javax.inject.Inject
@@ -34,14 +33,14 @@ class PerceptronViewModel @Inject constructor (
      *
      * @return padrão de saída da rede neural, ou null, caso não tenha uma saída associada à entrada.
      */
-    fun calculateOutput(bitmap: Bitmap, listener: CoroutineListener): LiveData<Output?> {
+    fun predict(bitmap: Bitmap, listener: CoroutineListener): LiveData<Output?> {
 
         val result = MutableLiveData<Output?>()
 
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            result.postValue(perceptronRepository.calculateOutput(bitmap).await())
+            result.postValue(perceptronRepository.predict(bitmap).await())
         }
 
         return result
@@ -56,13 +55,13 @@ class PerceptronViewModel @Inject constructor (
      *
      * @return número de épocas para o treinamento.
      */
-    fun trainPerceptron(listener: CoroutineListener): LiveData<Int> {
+    fun train(listener: CoroutineListener): LiveData<Int> {
 
         val result = MutableLiveData<Int>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            result.postValue(perceptronRepository.trainPerceptron().await())
+            result.postValue(perceptronRepository.train().await())
         }
 
         return result

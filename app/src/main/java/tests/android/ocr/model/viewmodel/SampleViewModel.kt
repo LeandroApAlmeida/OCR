@@ -30,13 +30,13 @@ class SampleViewModel @Inject constructor(
      *
      * @param listener ouvinte da corrotina.
      */
-    fun insertSample(sample: Sample, listener: CoroutineListener): LiveData<Boolean> {
+    fun insert(sample: Sample, listener: CoroutineListener): LiveData<Boolean> {
 
         val result = MutableLiveData<Boolean>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            sampleRepository.insertSample(sample)
+            sampleRepository.insert(sample)
             result.postValue(true)
         }
 
@@ -52,13 +52,13 @@ class SampleViewModel @Inject constructor(
      *
      * @param listener ouvinte da corrotina.
      */
-    fun updateSample(sample: Sample, listener: CoroutineListener): LiveData<Boolean> {
+    fun update(sample: Sample, listener: CoroutineListener): LiveData<Boolean> {
 
         val result = MutableLiveData<Boolean>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            sampleRepository.updateSample(sample)
+            sampleRepository.update(sample)
             result.postValue(true)
         }
 
@@ -74,13 +74,13 @@ class SampleViewModel @Inject constructor(
      *
      * @param listener ouvinte da corrotina.
      */
-    fun deleteSample(sample: Sample, listener: CoroutineListener): LiveData<Boolean> {
+    fun delete(sample: Sample, listener: CoroutineListener): LiveData<Boolean> {
 
         val result = MutableLiveData<Boolean>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            sampleRepository.deleteSample(sample)
+            sampleRepository.delete(sample)
             result.postValue(true)
         }
 
@@ -96,13 +96,13 @@ class SampleViewModel @Inject constructor(
      *
      * @param listener ouvinte da corrotina.
      */
-    fun deleteAllSamples(samplesList: List<Sample>, listener: CoroutineListener): LiveData<Boolean> {
+    fun deleteAll(samplesList: List<Sample>, listener: CoroutineListener): LiveData<Boolean> {
 
         val result = MutableLiveData<Boolean>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            sampleRepository.deleteAllSamples(samplesList)
+            sampleRepository.deleteAll(samplesList)
             result.postValue(true)
         }
 
@@ -122,13 +122,13 @@ class SampleViewModel @Inject constructor(
      *
      * @return lista com as amostras associadas com o padrão de saída da rede neural.
      */
-    fun getAllSamples(idOutput: Long, lite: Boolean, listener: CoroutineListener): LiveData<List<Sample>?> {
+    fun getAll(idOutput: Long, lite: Boolean, listener: CoroutineListener): LiveData<List<Sample>?> {
 
         val result = MutableLiveData<List<Sample>?>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            result.postValue(sampleRepository.getAllSamples(idOutput, lite).await())
+            result.postValue(sampleRepository.getAll(idOutput, lite).await())
         }
 
         return result
@@ -145,13 +145,13 @@ class SampleViewModel @Inject constructor(
      *
      * @return amostra relacionada, ou null, caso a amostra não seja encontrada.
      */
-    fun getSampleById(idSample: Long, listener: CoroutineListener): LiveData<Sample?> {
+    fun getById(idSample: Long, listener: CoroutineListener): LiveData<Sample?> {
 
         val result = MutableLiveData<Sample?>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            result.postValue(sampleRepository.getSampleById(idSample).await())
+            result.postValue(sampleRepository.getById(idSample).await())
         }
 
         return result
@@ -168,13 +168,13 @@ class SampleViewModel @Inject constructor(
      *
      * @return dados da amostra relacionada, ou null, caso a amostra não seja encontrada.
      */
-    fun getSampleDataById(idSample: Long, listener: CoroutineListener): LiveData<ByteArray?> {
+    fun getDataById(idSample: Long, listener: CoroutineListener): LiveData<ByteArray?> {
 
         val result = MutableLiveData<ByteArray?>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            result.postValue(sampleRepository.getSampleDataById(idSample).await())
+            result.postValue(sampleRepository.getDataById(idSample).await())
         }
 
         return result
@@ -189,13 +189,13 @@ class SampleViewModel @Inject constructor(
      *
      * @return número total de amostras no banco de dados.
      */
-    fun getTotalSamples(listener: CoroutineListener): LiveData<Int> {
+    fun getTotal(listener: CoroutineListener): LiveData<Int> {
 
         val result = MutableLiveData<Int>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            result.postValue(sampleRepository.getTotalSamples().await())
+            result.postValue(sampleRepository.getTotal().await())
         }
 
         return result
@@ -212,13 +212,13 @@ class SampleViewModel @Inject constructor(
      *
      * @return número total de amostras por padrão de saída da rede neural.
      */
-    fun getTotalSamplesByOutput(idOutput: Long, listener: CoroutineListener): LiveData<Int> {
+    fun getTotalByOutput(idOutput: Long, listener: CoroutineListener): LiveData<Int> {
 
         val result = MutableLiveData<Int>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            result.postValue(sampleRepository.getTotalSamplesByOutput(idOutput).await())
+            result.postValue(sampleRepository.getTotalByOutput(idOutput).await())
         }
 
         return result

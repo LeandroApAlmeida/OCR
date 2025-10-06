@@ -13,35 +13,35 @@ interface OutputRepository {
      *
      * @param output saída da rede neural a ser inserida.
      */
-    suspend fun insertOutput(output: Output)
+    suspend fun insert(output: Output)
 
     /**
      * Atualizar uma saída da rede neural.
      *
      * @param output saída da rede neural a ser atualizada.
      */
-    suspend fun updateOutput(output: Output)
+    suspend fun update(output: Output)
 
     /**
      * Excluir uma saída da rede neural.
      *
      * @param output saída da rede neural a ser excluída.
      */
-    suspend fun deleteOutput(output: Output)
+    suspend fun delete(output: Output)
 
     /**
      * Excluir uma lista de saídas da rede neural.
      *
      * @param outputList lista de saídas a serem excluídas.
      */
-    suspend fun deleteAllOutputs(outputList: List<Output>)
+    suspend fun deleteAll(outputList: List<Output>)
 
     /**
      * Obter todas saídas da rede neural.
      *
      * @return lista com todas as saídas da rede neural.
      */
-    suspend fun getAllOutputs(): Deferred<List<Output>?>
+    suspend fun getAll(): Deferred<List<Output>?>
 
     /**
      * Obter a saída da rede neural pelo identificador chave primária.
@@ -50,6 +50,6 @@ interface OutputRepository {
      *
      * @return saída da rede neural relacionada, ou null, caso não seja encontradq.
      */
-    suspend fun getOutputById(idOutput: Long): Deferred<Output?>
+    suspend fun getById(idOutput: Long): Deferred<Output?>
 
 }

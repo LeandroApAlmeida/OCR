@@ -9,7 +9,6 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import tests.android.ocr.database.model.Output
 import tests.android.ocr.model.repository.OutputRepository
-import tests.android.ocr.model.repository.ParamsRepository
 import javax.inject.Inject
 
 /**
@@ -31,13 +30,13 @@ class OutputViewModel @Inject constructor(
      *
      * @param listener ouvinte da corrotina.
      */
-    fun insertOutput(output: Output, listener: CoroutineListener): LiveData<Boolean> {
+    fun insert(output: Output, listener: CoroutineListener): LiveData<Boolean> {
 
         val result = MutableLiveData<Boolean>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            outputRepository.insertOutput(output)
+            outputRepository.insert(output)
             result.postValue(true)
         }
 
@@ -53,13 +52,13 @@ class OutputViewModel @Inject constructor(
      *
      * @param listener ouvinte da corrotina.
      */
-    fun updateOutput(output: Output, listener: CoroutineListener): LiveData<Boolean> {
+    fun update(output: Output, listener: CoroutineListener): LiveData<Boolean> {
 
         val result = MutableLiveData<Boolean>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            outputRepository.updateOutput(output)
+            outputRepository.update(output)
             result.postValue(true)
         }
 
@@ -75,13 +74,13 @@ class OutputViewModel @Inject constructor(
      *
      * @param listener ouvinte da corrotina.
      */
-    fun deleteOutput(output: Output, listener: CoroutineListener): LiveData<Boolean> {
+    fun delete(output: Output, listener: CoroutineListener): LiveData<Boolean> {
 
         val result = MutableLiveData<Boolean>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            outputRepository.deleteOutput(output)
+            outputRepository.delete(output)
             result.postValue(true)
         }
 
@@ -97,13 +96,13 @@ class OutputViewModel @Inject constructor(
      *
      * @param listener ouvinte da corrotina.
      */
-    fun deleteAllOutputs(outputList: List<Output>, listener: CoroutineListener): LiveData<Boolean> {
+    fun deleteAll(outputList: List<Output>, listener: CoroutineListener): LiveData<Boolean> {
 
         val result = MutableLiveData<Boolean>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            outputRepository.deleteAllOutputs(outputList)
+            outputRepository.deleteAll(outputList)
             result.postValue(true)
         }
 
@@ -119,13 +118,13 @@ class OutputViewModel @Inject constructor(
      *
      * @return lista com todas as saídas da rede neural.
      */
-    fun getAllOutputs(listener: CoroutineListener): LiveData<List<Output>?> {
+    fun getAll(listener: CoroutineListener): LiveData<List<Output>?> {
 
         val result = MutableLiveData<List<Output>?>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            result.postValue(outputRepository.getAllOutputs().await())
+            result.postValue(outputRepository.getAll().await())
         }
 
         return result
@@ -142,13 +141,13 @@ class OutputViewModel @Inject constructor(
      *
      * @return saída da rede neural relacionada, ou null, caso não seja encontrada.
      */
-    fun getOutputById(idOutput: Long, listener: CoroutineListener): LiveData<Output?> {
+    fun getById(idOutput: Long, listener: CoroutineListener): LiveData<Output?> {
 
         val result = MutableLiveData<Output?>()
         val handler = CoroutineExceptionHandler { _, ex -> listener.onCoroutineException(ex) }
 
         viewModelScope.launch(handler) {
-            result.postValue(outputRepository.getOutputById(idOutput).await())
+            result.postValue(outputRepository.getById(idOutput).await())
         }
 
         return result

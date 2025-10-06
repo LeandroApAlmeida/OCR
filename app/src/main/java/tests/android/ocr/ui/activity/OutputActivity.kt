@@ -80,7 +80,7 @@ class OutputActivity : AppCompatActivity(), CoroutineListener {
      */
     private fun setOutput(id: Long) {
 
-        outputViewModel.getOutputById(id, this).observe(this) { output ->
+        outputViewModel.getById(id, this).observe(this) { output ->
 
             if (output != null) {
 
@@ -134,7 +134,7 @@ class OutputActivity : AppCompatActivity(), CoroutineListener {
                     pronunc
                 )
 
-                outputViewModel.insertOutput(output2, this).observe(this) {
+                outputViewModel.insert(output2, this).observe(this) {
                     finish()
                 }
 
@@ -144,7 +144,7 @@ class OutputActivity : AppCompatActivity(), CoroutineListener {
                 output!!.target = target
                 output!!.pronunciation = pronunc
 
-                outputViewModel.updateOutput(output!!, this).observe(this) {
+                outputViewModel.update(output!!, this).observe(this) {
                     finish()
                 }
 

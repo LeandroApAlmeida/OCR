@@ -17,80 +17,80 @@ class SampleDatasource @Inject constructor(
 ): SampleRepository {
 
 
-    override suspend fun insertSample(sample: Sample): Unit = withContext(Dispatchers.IO) {
+    override suspend fun insert(sample: Sample): Unit = withContext(Dispatchers.IO) {
 
-        sampleDao.insertSample(sample)
-
-    }
-
-
-    override suspend fun updateSample(sample: Sample): Unit = withContext(Dispatchers.IO) {
-
-        sampleDao.updateSample(sample)
+        sampleDao.insert(sample)
 
     }
 
 
-    override suspend fun deleteSample(sample: Sample): Unit = withContext(Dispatchers.IO) {
+    override suspend fun update(sample: Sample): Unit = withContext(Dispatchers.IO) {
 
-        sampleDao.deleteSample(sample)
+        sampleDao.update(sample)
 
     }
 
 
-    override suspend fun deleteAllSamples(samplesList: List<Sample>) {
+    override suspend fun delete(sample: Sample): Unit = withContext(Dispatchers.IO) {
+
+        sampleDao.delete(sample)
+
+    }
+
+
+    override suspend fun deleteAll(samplesList: List<Sample>) {
 
         samplesList.forEach { sample ->
-            deleteSample(sample)
+            delete(sample)
         }
 
     }
 
 
-    override suspend fun getAllSamples(idOutput: Long, lite: Boolean) = withContext(Dispatchers.IO) {
+    override suspend fun getAll(idOutput: Long, lite: Boolean) = withContext(Dispatchers.IO) {
 
         async {
             if (lite) {
-                sampleDao.getAllSamplesLite(idOutput)
+                sampleDao.getAllLite(idOutput)
             } else {
-                sampleDao.getAllSamples(idOutput)
+                sampleDao.getAll(idOutput)
             }
         }
 
     }
 
 
-    override suspend fun getSampleById(idSample: Long) = withContext(Dispatchers.IO) {
+    override suspend fun getById(idSample: Long) = withContext(Dispatchers.IO) {
 
         async {
-            sampleDao.getSampleById(idSample)
+            sampleDao.getById(idSample)
         }
 
     }
 
 
-    override suspend fun getSampleDataById(idSample: Long) = withContext(Dispatchers.IO) {
+    override suspend fun getDataById(idSample: Long) = withContext(Dispatchers.IO) {
 
         async {
-            sampleDao.getSampleDataById(idSample)
+            sampleDao.getDataById(idSample)
         }
 
     }
 
 
-    override suspend fun getTotalSamples() = withContext(Dispatchers.IO) {
+    override suspend fun getTotal() = withContext(Dispatchers.IO) {
 
         async {
-            sampleDao.getTotalSamples()
+            sampleDao.getTotal()
         }
 
     }
 
 
-    override suspend fun getTotalSamplesByOutput(idOutput: Long) = withContext(Dispatchers.IO) {
+    override suspend fun getTotalByOutput(idOutput: Long) = withContext(Dispatchers.IO) {
 
         async {
-            sampleDao.getTotalSamplesByOutput(idOutput)
+            sampleDao.getTotalByOutput(idOutput)
         }
 
     }

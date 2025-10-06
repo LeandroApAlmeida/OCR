@@ -105,7 +105,7 @@ class SamplesActivity : AppCompatActivity(), CoroutineListener {
      */
     private fun listOutputs() {
 
-        outputViewModel.getAllOutputs(this).observe(this) { outputList ->
+        outputViewModel.getAll(this).observe(this) { outputList ->
 
             if (outputList != null) {
 
@@ -145,7 +145,7 @@ class SamplesActivity : AppCompatActivity(), CoroutineListener {
      */
     private fun listSamples() {
 
-        sampleViewModel.getAllSamples(output!!.id, true, this).observe(this) { samplesList ->
+        sampleViewModel.getAll(output!!.id, true, this).observe(this) { samplesList ->
 
             if (samplesList != null) {
 
@@ -183,7 +183,7 @@ class SamplesActivity : AppCompatActivity(), CoroutineListener {
             setTitle("Atenção")
             setMessage("Confirma a exclusão da(s) amostra(s) selecionada(s)?")
             setPositiveButton("Sim") { _, _ ->
-                sampleViewModel.deleteAllSamples(selectedSamples, owner).observe(owner) {
+                sampleViewModel.deleteAll(selectedSamples, owner).observe(owner) {
                     listSamples()
                 }
             }
@@ -202,7 +202,7 @@ class SamplesActivity : AppCompatActivity(), CoroutineListener {
         val customAdapter = (binding.rcvSamples.adapter as CustomAdapter)
         val sample: Sample = customAdapter.selectedItems[0]
 
-        sampleViewModel.getSampleDataById(sample.id, this).observe(this) { data ->
+        sampleViewModel.getDataById(sample.id, this).observe(this) { data ->
 
             with (AlertDialog.Builder(this)) {
                 setTitle("Detalhes")
@@ -246,7 +246,7 @@ class SamplesActivity : AppCompatActivity(), CoroutineListener {
 
             val imvSample = view.findViewById<ImageView>(R.id.imvSampleLayout)
 
-            sampleViewModel.getSampleDataById(item.id, owner).observe(owner) { data ->
+            sampleViewModel.getDataById(item.id, owner).observe(owner) { data ->
 
                 val bitmap = imageBuilder.imageStreamToBitmap(data!!)
                 val bitmap2: Bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
@@ -267,5 +267,6 @@ class SamplesActivity : AppCompatActivity(), CoroutineListener {
         }
 
     }
+
 
 }

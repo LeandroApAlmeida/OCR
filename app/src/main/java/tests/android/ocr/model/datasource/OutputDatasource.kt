@@ -37,7 +37,7 @@ class OutputDatasource @Inject constructor(
 
         val outputSize = paramsDao.getOutputSize()
 
-        val outputs = outputDao.getAllOutputs()
+        val outputs = outputDao.getAll()
 
         var containsInvalidChars = false
 
@@ -93,53 +93,53 @@ class OutputDatasource @Inject constructor(
     }
 
 
-    override suspend fun insertOutput(output: Output): Unit = withContext(Dispatchers.IO) {
+    override suspend fun insert(output: Output): Unit = withContext(Dispatchers.IO) {
 
         validateTarget(output)
 
-        outputDao.insertOutput(output)
+        outputDao.insert(output)
 
     }
 
 
-    override suspend fun updateOutput(output: Output): Unit = withContext(Dispatchers.IO) {
+    override suspend fun update(output: Output): Unit = withContext(Dispatchers.IO) {
 
         validateTarget(output)
 
-        outputDao.updateOutput(output)
+        outputDao.update(output)
 
     }
 
 
-    override suspend fun deleteOutput(output: Output): Unit = withContext(Dispatchers.IO) {
+    override suspend fun delete(output: Output): Unit = withContext(Dispatchers.IO) {
 
-        outputDao.deleteOutput(output)
+        outputDao.delete(output)
 
     }
 
 
-    override suspend fun deleteAllOutputs(outputList: List<Output>): Unit = withContext(Dispatchers.IO) {
+    override suspend fun deleteAll(outputList: List<Output>): Unit = withContext(Dispatchers.IO) {
 
         outputList.forEach { output ->
-            deleteOutput(output)
+            delete(output)
         }
 
     }
 
 
-    override suspend fun getAllOutputs() = withContext(Dispatchers.IO) {
+    override suspend fun getAll() = withContext(Dispatchers.IO) {
 
         async {
-            outputDao.getAllOutputs()
+            outputDao.getAll()
         }
 
     }
 
 
-    override suspend fun getOutputById(idOutput: Long) = withContext(Dispatchers.IO) {
+    override suspend fun getById(idOutput: Long) = withContext(Dispatchers.IO) {
 
         async {
-            outputDao.getOutputById(idOutput)
+            outputDao.getById(idOutput)
         }
 
     }
