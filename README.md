@@ -2,11 +2,11 @@
 
 <br>
 
-Aplicativo Kotlin para sistemas Android que implementa uma rede neural artificial do tipo perceptron de camada única. O objetivo do aplicativo é a demonstração de como este modelo de rede neural é implementado na prática.
+Aplicativo Kotlin para sistemas Android que implementa uma rede neural artificial do tipo perceptron de camada única para o reconhecimento de caracteres manuscritos desenhados no tela do dispositivo móvel. O objetivo do aplicativo é a demonstração de como este modelo de rede neural é implementado na prática.
 
-Classe do perceptron no código-fonte do projeto:
+A classe do perceptron no código-fonte do projeto é a seguinte:
 
-test'''
+<pre>
     
 package tests.android.ocr.perceptron
 
@@ -295,11 +295,14 @@ class Perceptron(
 
 }
 
-'''
+</pre>
 
 Para mais informações sobre o modelo, consulte a página:
 
+<br>
+
 https://en.wikipedia.org/wiki/Perceptron
 
+<br>
 
 https://github.com/user-attachments/assets/bcd23024-daaa-4137-8f0b-50aa2bf9be98
