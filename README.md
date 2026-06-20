@@ -6,6 +6,8 @@ Aplicativo Kotlin para sistemas Android que implementa uma rede neural artificia
 
 A classe do perceptron no código-fonte do projeto é a seguinte:
 
+<br>
+
 <pre>
     
 package tests.android.ocr.perceptron
@@ -296,6 +298,8 @@ class Perceptron(
 }
 
 </pre>
+
+<br>
 
 Para mais informações sobre o modelo, consulte a página:
 
